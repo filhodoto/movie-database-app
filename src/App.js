@@ -1,8 +1,10 @@
+/* eslint react/no-did-mount-set-state: 0 */
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Movie from "./Movie";
+import Movie from './Movie';
 
 class App extends Component {
 
@@ -41,7 +43,7 @@ class App extends Component {
           <h1 className="App-title">Movie database</h1>
         </header>
         {/*Map overt each movie an output movie component*/}
-        {this.state.movies.map( movie => <Movie key={movie.id} movie={movie} description={movie.overview} /> )}
+        {this.state.movies.map( movie => <Movie key={movie.id} movie={movie} />)}
       </div>
     );
   }

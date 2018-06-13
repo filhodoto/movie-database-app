@@ -1,33 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Movie extends Component {
+/**
+ * Functional Stateless Component
+ * Passing props into function -> ({movie}) = (props.movie) using es6 destructuring
+ */
+const Movie = ({movie}) => {
+  return (
+    <div>
+      <h3>{movie.title}</h3>
+      <p>{movie.overview}</p>
+    </div>
+  );
+};
 
-  /**
-   * Define propTypes for our props
-   * Notes: Should always have "isRequired" or a default value
-   * @type {{movie}}
-   */
-  static propTypes = {
-    movie: PropTypes.shape({
-      title: PropTypes.string.isRequired
-    })
-  };
+/**
+ * Export function
+ * Notes: FSC need to be exported like this
+ * can't use default when defining const
+ */
+export default Movie;
 
-  /**
-   * Define default values for props that arent required
-   */
-  static defaultProps = {
-    description: 'No description for this'
-  }
+/**
+ * Define propTypes for a FSC
+ * Notes: Should always have "isRequired" or a default value
+ */
+Movie.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
-  render() {
-    const { title } = this.props.movie;
-    return (
-      <div>
-        <h3>{title}</h3>
-        <p>{this.props.description}</p>
-      </div>
-    )
-  }
-}

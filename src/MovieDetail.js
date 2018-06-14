@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import Overdrive from 'react-overdrive';
 
-import { MoviePoster }from './Movie';
+import { MoviePoster } from './Movie';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
@@ -11,7 +12,7 @@ const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
  * Notes:
  * "match" is where the params are stored inside React Router
  */
-class MovieDetail extends Component {
+export default class MovieDetail extends Component {
 
   /**
    * Set default state
@@ -42,7 +43,9 @@ class MovieDetail extends Component {
     return (
       <DetailsWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
         <MovieInfo>
-          <MoviePoster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title}/>
+          <Overdrive id={`${movie.id}`}>
+            <MoviePoster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+          </Overdrive>
           <div>
             <h1>{movie.title}</h1>
             <p>{movie.release_date}</p>
@@ -54,7 +57,6 @@ class MovieDetail extends Component {
   }
 }
 
-export default MovieDetail;
 /**
  * Define styled components
  */

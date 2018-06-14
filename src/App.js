@@ -1,52 +1,44 @@
 /* eslint react/no-did-mount-set-state: 0 */
 
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link
+} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import Movie from './Movie';
+import MoviesList from './MoviesList';
 
-class App extends Component {
-
-  /**
-   * Set default state
-   */
-  state = {
-    movies: []
-  };
-
-  /**
-   * Define default values for props that arent required
-   */
-  async componentDidMount() {
-    try {
-      // Api call
-      const result = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=b01d116084668e4b15d36351e4941996&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
-
-      // Wait for json to be ready and save it in variable
-      const movies = await result.json();
-
-      // Update state with api results
-      this.setState({
-        movies: movies.results
-      })
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
+/**
+ * Functional Stateless Component
+ */
+const App = () => (
+  <Router>
+    <div className="App">
+      <header className="App-header">
+        <Link to="/">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Movie database</h1>
-        </header>
-        {/*Map overt each movie an output movie component*/}
-        {this.state.movies.map( movie => <Movie key={movie.id} movie={movie} />)}
-      </div>
-    );
-  }
-}
+        </Link>
+      </header>
+      <Switch>
+        <Route exact path="/" component={MoviesList} />
+        <Route path="/:id" component={MovieDetails} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;
+
+/**
+ * Movie detail component
+ * Receive "match" from route and use it to get id param
+ * "match" is where the params are stored inside React Router
+ */
+const MovieDetails = ({match}) => (
+  <h1>{match.params.id}</h1>
+)

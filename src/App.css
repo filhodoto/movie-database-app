@@ -14,3 +14,8 @@
 .App-title {
   font-size: 1.3em;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

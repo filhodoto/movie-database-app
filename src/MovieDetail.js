@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import { MoviePoster }from './Movie';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
@@ -9,11 +11,7 @@ const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
  * Notes:
  * "match" is where the params are stored inside React Router
  */
-// const MovieDetail = ({match}) => (
-//   <h1>{match.params.id}</h1>
-// )
-
-export default class MovieDetail extends Component {
+class MovieDetail extends Component {
 
   /**
    * Set default state
@@ -21,7 +19,6 @@ export default class MovieDetail extends Component {
   state = {
     movie: {},
   };
-
 
   async componentDidMount() {
     try {
@@ -32,6 +29,8 @@ export default class MovieDetail extends Component {
       this.setState({
         movie,
       });
+
+      console.log(this.state.movie);
     } catch (e) {
       console.log(e);
     }
@@ -39,13 +38,44 @@ export default class MovieDetail extends Component {
 
   render() {
     const { movie } = this.state;
+
     return (
-      <div>
-        <img src={`${BACKDROP_PATH}${movie.backdrop_path}`} alt={movie.title}/>
-        <h1>{movie.title}</h1>
-        <h2>{movie.release_date}</h2>
-        <p>{movie.overview}</p>
-      </div>
+      <DetailsWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
+        <MovieInfo>
+          <MoviePoster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title}/>
+          <div>
+            <h1>{movie.title}</h1>
+            <p>{movie.release_date}</p>
+            <p>{movie.overview}</p>
+          </div>
+        </MovieInfo>
+      </DetailsWrapper>
     )
   }
 }
+
+export default MovieDetail;
+/**
+ * Define styled components
+ */
+const DetailsWrapper = styled.div`
+  padding-top: 50vh;
+  background: url(${props => props.backdrop}) no-repeat;
+  background-size: cover;
+  background-position: center center;
+`;
+
+const MovieInfo = styled.div`
+  text-align: left;
+  padding: 2rem 10%;
+  display: flex;
+  background-color: #0C2430;
+  color: white;
+  > div {
+    margin-left: 20px;
+  }
+  img {
+    position: relative;
+    top: -5rem;
+  }
+`;

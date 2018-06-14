@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 
@@ -11,10 +12,8 @@ const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 const Movie = ({ movie }) => (
   <div>
     <Link to={`/${movie.id}`}>
-      <img src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title}/>
+      <MoviePoster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title}/>
     </Link>
-    <h3>{movie.title}</h3>
-    <p>{movie.overview}</p>
   </div>
 );
 
@@ -36,3 +35,9 @@ Movie.propTypes = {
   }).isRequired,
 };
 
+/**
+ * Define styled components
+ */
+export const MoviePoster = styled.img`
+  box-shadow: 0 0 35px black;
+`;

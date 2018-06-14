@@ -11,11 +11,7 @@ const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
  * Notes:
  * "match" is where the params are stored inside React Router
  */
-// const MovieDetail = ({match}) => (
-//   <h1>{match.params.id}</h1>
-// )
-
-export default class MovieDetail extends Component {
+class MovieDetail extends Component {
 
   /**
    * Set default state
@@ -23,7 +19,6 @@ export default class MovieDetail extends Component {
   state = {
     movie: {},
   };
-
 
   async componentDidMount() {
     try {
@@ -34,6 +29,8 @@ export default class MovieDetail extends Component {
       this.setState({
         movie,
       });
+
+      console.log(this.state.movie);
     } catch (e) {
       console.log(e);
     }
@@ -41,13 +38,14 @@ export default class MovieDetail extends Component {
 
   render() {
     const { movie } = this.state;
+
     return (
       <DetailsWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
         <MovieInfo>
           <MoviePoster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title}/>
           <div>
             <h1>{movie.title}</h1>
-            <h2>{movie.release_date}</h2>
+            <p>{movie.release_date}</p>
             <p>{movie.overview}</p>
           </div>
         </MovieInfo>
@@ -56,7 +54,7 @@ export default class MovieDetail extends Component {
   }
 }
 
-
+export default MovieDetail;
 /**
  * Define styled components
  */
@@ -64,13 +62,14 @@ const DetailsWrapper = styled.div`
   padding-top: 50vh;
   background: url(${props => props.backdrop}) no-repeat;
   background-size: cover;
+  background-position: center center;
 `;
 
 const MovieInfo = styled.div`
   text-align: left;
   padding: 2rem 10%;
   display: flex;
-  background-color: rgba(12,36,48, 0.8);
+  background-color: #0C2430;
   color: white;
   > div {
     margin-left: 20px;

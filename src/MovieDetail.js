@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
 
@@ -12,7 +12,7 @@ const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
  * Notes:
  * "match" is where the params are stored inside React Router
  */
-export default class MovieDetail extends Component {
+export default class MovieDetail extends PureComponent {
 
   /**
    * Set default state
@@ -64,7 +64,7 @@ const DetailsWrapper = styled.div`
   padding-top: 50vh;
   background: url(${props => props.backdrop}) no-repeat;
   background-size: cover;
-  background-position: center center;
+  background-position: center 0;
 `;
 
 const MovieInfo = styled.div`

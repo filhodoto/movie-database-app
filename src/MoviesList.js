@@ -1,6 +1,7 @@
 /* eslint react/no-did-mount-set-state: 0 */
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import Movie from './Movie';
 
 export default class MoviesList extends Component {
@@ -34,10 +35,20 @@ export default class MoviesList extends Component {
 
   render() {
     return (
-    <div>
-      {/*Map overt each movie an output movie component*/}
-      {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
-    </div>
+      <MovieGrid>
+        {/*Map overt each movie an output movie component*/}
+        {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+      </MovieGrid>
     );
   }
 }
+
+/**
+ * Define styled components
+ */
+const MovieGrid = styled.div`
+  display: grid;
+  padding: 10px;
+  grid-template-columns: repeat(7, 2fr);
+  grid-row-gap: 10px;
+`;

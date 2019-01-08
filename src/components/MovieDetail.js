@@ -1,23 +1,40 @@
-import React, {PureComponent} from 'react';
+/**
+ * @flow
+ */
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
-
+import type {MovieType} from './../flow-types/Movies';
 import { MoviePoster } from './Movie';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
 
 /**
+ * Define flowTypes for a FSC
+ */
+type State = {
+  movie: MovieType
+}
+
+type Props = {
+  match: {
+    params: {
+      id: number,
+    }
+  }
+};
+
+/**
  * Movie detail component
  * Notes:
  * "match" is where the params are stored inside React Router
  */
-export default class MovieDetail extends PureComponent {
-
+export default class MovieDetail extends PureComponent<Props,State> {
   /**
    * Set default state
    */
-  state = {
+  state:State = {
     movie: {},
   };
 
@@ -30,8 +47,6 @@ export default class MovieDetail extends PureComponent {
       this.setState({
         movie,
       });
-
-      console.log(this.state.movie);
     } catch (e) {
       console.log(e);
     }
@@ -53,7 +68,7 @@ export default class MovieDetail extends PureComponent {
           </div>
         </MovieInfo>
       </DetailsWrapper>
-    )
+    );
   }
 }
 

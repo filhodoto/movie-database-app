@@ -1,16 +1,24 @@
+/**
+ * @flow
+ */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
-
+import type {MovieType} from './../flow-types/Movies';
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 
+/**
+ * Define flowTypes for a FSC
+ */
+type MovieTypeFix = {
+  movie: MovieType
+}
 /**
  * Functional Stateless Component
  * Passing props into function -> ({movie}) = (props.movie) using es6 destructuring
  */
-const Movie = ({ movie }) => (
+const Movie = ({ movie }: MovieTypeFix) => (
   <div>
     <Link to={`/${movie.id}`}>
       <Overdrive id={`${movie.id}`}>
@@ -27,15 +35,6 @@ const Movie = ({ movie }) => (
  */
 export default Movie;
 
-/**
- * Define propTypes for a FSC
- * Notes: Should always have "isRequired" or a default value
- */
-Movie.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 /**
  * Define styled components

@@ -1,10 +1,17 @@
 /* eslint react/no-did-mount-set-state: 0 */
-
+/**
+ * @flow
+ */
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Movie from './Movie';
+import type {MovieType} from './../flow-types/Movies';
 
-export default class MoviesList extends Component {
+type State = {
+  movies: Array<MovieType>
+}
+
+export default class MoviesList extends Component<{}, State> {
 
   /**
    * Set default state
@@ -23,7 +30,7 @@ export default class MoviesList extends Component {
 
       // Wait for json to be ready and save it in variable
       const movies = await result.json();
-
+      console.log(movies);
       // Update state with api results
       this.setState({
         movies: movies.results
